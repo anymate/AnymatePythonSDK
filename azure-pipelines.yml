@@ -32,5 +32,5 @@ steps:
     pythonUploadServiceConnection: 'pypianymate'
 
 - script: |
-   python -m twine upload -r 'anymate' --config-file $(PYPIRC_PATH) dist/*.whl
+   python -m twine upload -r 'anymate' --repository-url 'https://upload.pypi.org/legacy' --config-file $(PYPIRC_PATH) dist/*.whl
   displayName: 'Publish to PyPi through Twine'
