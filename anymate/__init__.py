@@ -132,14 +132,16 @@ class client:
     def get_rules(self, processKey):
         endpoint = f'apimate/GetRules/{processKey}'
         result = self._api_get(endpoint)
-        response = get_object(result)
-        return response
+        return result
+        # response = get_object(result)
+        # return response
 
     def take_next(self, processKey):
         endpoint = f'apimate/TakeNext/{processKey}'
         result = self._api_get(endpoint)
-        response = get_object(result)
-        return response
+        return result
+        # response = get_object(result)
+        # return response
 
     def create_task(self, processKey, new_task):
         endpoint = f'apimate/CreateTask/{processKey}'
@@ -152,8 +154,9 @@ class client:
         endpoint = f'apimate/CreateAndTakeTask/{processKey}'
         json_payload = json.dumps(new_task)
         result = self._api_post(endpoint, json_payload)
-        response = get_object(result)
-        return response
+        return result
+        # response = get_object(result)
+        # return response
 
     def update_task(self, task):
         endpoint = f'apimate/UpdateTask'
