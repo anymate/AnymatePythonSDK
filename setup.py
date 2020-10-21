@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="anymate",
-    version="0.0.4",
+    version="0.0.5",
     author="Anymate ApS",
     author_email="simon@anymate.io",
     description="Anymate SDK",
