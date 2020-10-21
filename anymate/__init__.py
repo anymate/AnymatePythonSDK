@@ -20,6 +20,7 @@ class client:
         self.username = username
         self.client_id = client_id
         self.client_secret = client_secret
+        self.set_cloud_mode()
 
     def set_on_premises_mode(self, client_uri, auth_uri):
         self.on_premises_mode = True
@@ -33,13 +34,11 @@ class client:
         if client_uri.endswith('/'):
             client_uri = client_uri[:-1]
         self.client_uri = client_uri
-        self.access_token = self._authenticate()
 
     def set_cloud_mode(self):
         self.on_premises_mode = False
         self.client_uri = self._get_api_url()
         self.auth_uri = self._get_auth_url()
-        self.access_token = self._authenticate()
 
     def _get_api_url(self):
         return f'https://{self.client_id}.anymate.app'
