@@ -8,31 +8,29 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
-strategy:
-  matrix:
-    Python27:
-      python.version: '2.7'
-    Python35:
-      python.version: '3.5'
-    Python36:
-      python.version: '3.6'
-    Python37:
-      python.version: '3.7'
+
 
 steps:
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: '$(python.version)'
-  displayName: 'Use Python $(python.version)'
+    versionSpec: 3.7
+    addToPath: true
+  displayName: Install Python
 
 - script: |
-    python -m pip install --upgrade pip
-    pip install -r requirements.txt
+    python -m pip install --upgrade pip setuptools wheel
   displayName: 'Install dependencies'
 
-- script: 'pip install twine'
-- task: TwineAuthenticate@0
-  inputs:
-    externalFeeds: 'pypianymate'
+- script: |    
+    python src/setup.py bdist_wheel 
+  displayName: 'Artifact creation'
 
-- script: 'twine upload -r {feedName/EndpointName} --config-file $(PYPIRC_PATH) {package path to publish}'
+- script: python -m pip install --upgrade twine
+  displayName: 'Install Twine'
+- task: TwineAuthenticate@1
+  inputs:
+    pythonUploadServiceConnection: 'pypianymate'
+
+- script: |
+   python -m twine upload --config-file $(PYPIRC_PATH) dist/*.whl
+  displayName: 'Publish to PyPi through Twine'
