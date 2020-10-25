@@ -12,7 +12,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/anymate/AnymatePythonSDK",
-    packages=['pyjwt', 'datetime', 'requests', 'pydantic'],
+    packages=['PyJWT', 'datetime', 'requests', 'pydantic'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
