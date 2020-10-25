@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="anymate",
-    version="0.0.8",
+    version="0.0.9",
     author="Anymate ApS",
     author_email="simon@anymate.io",
     description="Anymate SDK",
@@ -19,4 +19,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
+    install_requires=[
+        'datetime', 'requests', 'pydantic', 'pyjwt'
+    ],
 )
