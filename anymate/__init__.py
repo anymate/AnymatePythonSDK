@@ -61,7 +61,7 @@ class client:
         get_new_token = True
         if self.access_token:
             decoded_token = jwt.decode(self.access_token, verify=False)
-            expiration_time = decoded_token['exp']
+            expiration_time = decoded_token.get('exp', 0)
             expiration_datetime = datetime.datetime.utcfromtimestamp(expiration_time)
             diff = expiration_datetime - datetime.datetime.utcnow()
             get_new_token = diff.total_seconds() < 5 * 60
