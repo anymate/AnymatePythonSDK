@@ -104,54 +104,54 @@ class client:
         return json_result
 
     def failure(self, anymate_process_failure: Union[AnymateProcessFailure, dict]) -> AnymateResponse:
-        endpoint = 'apimate/Failure'
+        endpoint = 'api/Failure'
         json_payload = json.dumps(anymate_process_failure)
         result = self._api_post(endpoint, json_payload)
         response = AnymateResponse(**result)
         return response
 
     def finish_run(self, anymate_finish_run: Union[AnymateFinishRun, dict]) -> AnymateResponse:
-        endpoint = 'apimate/FinishRun'
+        endpoint = 'api/FinishRun'
         json_payload = json.dumps(anymate_finish_run)
         result = self._api_post(endpoint, json_payload)
         response = AnymateResponse(**result)
         return response
 
     def start_or_get_run(self, processKey: str) -> AnymateRunResponse:
-        endpoint = f'apimate/StartOrGetRun/{processKey}'
+        endpoint = f'api/StartOrGetRun/{processKey}'
         result = self._api_get(endpoint)
         response = AnymateRunResponse(**result)
         return response
 
     def ok_to_run(self, processKey: str) -> AnymateOkToRun:
-        endpoint = f'apimate/OkToRun/{processKey}'
+        endpoint = f'api/OkToRun/{processKey}'
         result = self._api_get(endpoint)
         response = AnymateOkToRun(**result)
         return response
 
     def get_rules(self, processKey: str) -> dict:
-        endpoint = f'apimate/GetRules/{processKey}'
+        endpoint = f'api/GetRules/{processKey}'
         result = self._api_get(endpoint)
         return result
         # response = get_object(result)
         # return response
 
     def take_next(self, processKey: str) -> dict:
-        endpoint = f'apimate/TakeNext/{processKey}'
+        endpoint = f'api/TakeNext/{processKey}'
         result = self._api_get(endpoint)
         return result
         # response = get_object(result)
         # return response
 
     def create_task(self, processKey: str, new_task: dict) -> AnymateResponse:
-        endpoint = f'apimate/CreateTask/{processKey}'
+        endpoint = f'api/CreateTask/{processKey}'
         json_payload = json.dumps(new_task)
         result = self._api_post(endpoint, json_payload)
         response = AnymateResponse(**result)
         return response
 
     def create_and_take_task(self, processKey: str, new_task: dict) -> dict:
-        endpoint = f'apimate/CreateAndTakeTask/{processKey}'
+        endpoint = f'api/CreateAndTakeTask/{processKey}'
         json_payload = json.dumps(new_task)
         result = self._api_post(endpoint, json_payload)
         return result
@@ -159,35 +159,35 @@ class client:
         # return response
 
     def update_task(self, task: dict) -> AnymateResponse:
-        endpoint = f'apimate/UpdateTask'
+        endpoint = f'api/UpdateTask'
         json_payload = json.dumps(task)
         result = self._api_post(endpoint, json_payload)
         response = AnymateResponse(**result)
         return response
 
     def error(self, action: Union[AnymateTaskAction, dict]) -> AnymateResponse:
-        endpoint = f'apimate/Error'
+        endpoint = f'api/Error'
         json_payload = json.dumps(action)
         result = self._api_post(endpoint, json_payload)
         response = AnymateResponse(**result)
         return response
 
     def manual(self, action: Union[AnymateTaskAction, dict]) -> AnymateResponse:
-        endpoint = f'apimate/Manual'
+        endpoint = f'api/Manual'
         json_payload = json.dumps(action)
         result = self._api_post(endpoint, json_payload)
         response = AnymateResponse(**result)
         return response
 
     def retry(self, action: Union[AnymateTaskAction, dict]) -> AnymateResponse:
-        endpoint = f'apimate/Retry'
+        endpoint = f'api/Retry'
         json_payload = json.dumps(action)
         result = self._api_post(endpoint, json_payload)
         response = AnymateResponse(**result)
         return response
 
     def solved(self, action: Union[AnymateTaskAction, dict]) -> AnymateResponse:
-        endpoint = f'apimate/Solved'
+        endpoint = f'api/Solved'
         json_payload = json.dumps(action)
         result = self._api_post(endpoint, json_payload)
         response = AnymateResponse(**result)
