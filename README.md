@@ -11,16 +11,10 @@ You can find the documentation for the SDK as part of the [Anymate Developer doc
 
 We have also published it at [pypi.org][pypilink]. Installing the Anymate package is done with the following command: 
 
-=== "Windows"
-    ``` python
-    #Install through pip
-    python -m pip install --upgrade anymate
-    ```
-=== "Linux & Mac"
-    ``` python
+``` python
     #Install through pip
     pip install --upgrade anymate
-    ```
+```
 
 Once installed, you just need to import anymate in your python program and you are ready to go
 
