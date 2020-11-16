@@ -1,7 +1,7 @@
 
 ---
 
-** In order to use this library, you need to have an Anymate account. Please visit [anymate.io][https://www.anymate.io] for more information. **
+** In order to use this library, you need to have an Anymate account. Please visit [anymate.io](https://www.anymate.io) for more information. **
 
 ---
 
@@ -34,7 +34,7 @@ The functions exposed in the client mirror the endpoints available in the API. W
 
 The SDK is built to automatically take care of authentication with Anymate as well as refreshing access_tokens as needed. Once the anymate.client is initialized, you don't have to worry about it.
 
-You can see an example of a simple automation based on the [Allocator pattern][allocatorpattern] below, where the automation script is working in one process and creating new tasks in another.
+You can see an example of a simple automation based on the Allocator Pattern below, where the automation script is working in one process and creating new tasks in another.
 
 ``` Python
     #Import the anymate library
@@ -153,4 +153,3 @@ client.set_on_premises_mode(client_base_uri, auth_base_uri)
 [anymatedocs]: http://docs.anymate.io/developer/SDK/python/
 [githublink]: https://github.com/anymate/AnymatePythonSDK/
 [pypilink]: https://pypi.org/project/anymate/
-[allocatorpattern]: ../../../developer/designPatterns/allocator-worker.md
