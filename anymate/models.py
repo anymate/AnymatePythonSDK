@@ -12,6 +12,11 @@ class AnymateResponse(BaseModel):
     succeeded: bool
     message: str
 
+class AnymateCreateTaskResponse(BaseModel):
+    succeeded: bool
+    message: str
+    taskId: int
+
 
 class AnymateProcessFailure(BaseModel):
     processKey: str
@@ -40,6 +45,15 @@ class AnymateTaskAction(BaseModel):
     taskId: int
     reason: str
     comment: str = ''
+    overwriteSecondsSaved: int = None
+    overwriteEntries: int = None
+
+
+class AnymateRetryTaskAction(BaseModel):
+    taskId: int
+    reason: str
+    comment: str = ''
+    activationDate: str = None
     overwriteSecondsSaved: int = None
     overwriteEntries: int = None
 

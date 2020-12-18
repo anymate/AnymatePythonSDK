@@ -143,11 +143,11 @@ class client:
         # response = get_object(result)
         # return response
 
-    def create_task(self, processKey: str, new_task: dict) -> AnymateResponse:
+    def create_task(self, processKey: str, new_task: dict) -> AnymateCreateTaskResponse:
         endpoint = f'api/CreateTask/{processKey}'
         json_payload = json.dumps(new_task)
         result = self._api_post(endpoint, json_payload)
-        response = AnymateResponse(**result)
+        response = AnymateCreateTaskResponse(**result)
         return response
 
     def create_and_take_task(self, processKey: str, new_task: dict) -> dict:
@@ -179,7 +179,7 @@ class client:
         response = AnymateResponse(**result)
         return response
 
-    def retry(self, action: Union[AnymateTaskAction, dict]) -> AnymateResponse:
+    def retry(self, action: Union[AnymateTaskAction, AnymateRetryTaskAction, dict]) -> AnymateResponse:
         endpoint = f'api/Retry'
         json_payload = json.dumps(action)
         result = self._api_post(endpoint, json_payload)
