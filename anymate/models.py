@@ -17,6 +17,11 @@ class AnymateCreateTaskResponse(BaseModel):
     message: str
     taskId: int
 
+class AnymateCreateTasksResponse(BaseModel):
+    succeeded: bool
+    message: str
+    taskIds: [int]
+
 
 class AnymateProcessFailure(BaseModel):
     processKey: str

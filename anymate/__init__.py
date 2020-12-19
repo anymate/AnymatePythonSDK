@@ -103,16 +103,17 @@ class client:
         json_result = result.json()
         return json_result
 
-    def failure(self, anymate_process_failure: Union[AnymateProcessFailure, dict]) -> AnymateResponse:
+    def failure(self, anymate_process_failure: Union[AnymateProcessFailure, dict, str]) -> AnymateResponse:
         endpoint = 'api/Failure'
-        json_payload = json.dumps(anymate_process_failure)
+        json_payload = anymate_process_failure if isinstance(anymate_process_failure, str) else json.dumps(
+            anymate_process_failure)
         result = self._api_post(endpoint, json_payload)
         response = AnymateResponse(**result)
         return response
 
-    def finish_run(self, anymate_finish_run: Union[AnymateFinishRun, dict]) -> AnymateResponse:
+    def finish_run(self, anymate_finish_run: Union[AnymateFinishRun, dict, str]) -> AnymateResponse:
         endpoint = 'api/FinishRun'
-        json_payload = json.dumps(anymate_finish_run)
+        json_payload = anymate_finish_run if isinstance(anymate_finish_run, str) else json.dumps(anymate_finish_run)
         result = self._api_post(endpoint, json_payload)
         response = AnymateResponse(**result)
         return response
@@ -143,52 +144,59 @@ class client:
         # response = get_object(result)
         # return response
 
-    def create_task(self, processKey: str, new_task: dict) -> AnymateCreateTaskResponse:
+    def create_task(self, processKey: str, new_task: Union[dict, str]) -> AnymateCreateTaskResponse:
         endpoint = f'api/CreateTask/{processKey}'
-        json_payload = json.dumps(new_task)
+        json_payload = new_task if isinstance(new_task, str) else json.dumps(new_task)
         result = self._api_post(endpoint, json_payload)
         response = AnymateCreateTaskResponse(**result)
         return response
 
-    def create_and_take_task(self, processKey: str, new_task: dict) -> dict:
+    def create_tasks(self, processKey: str, new_tasks: Union[list, str]) -> AnymateCreateTasksResponse:
+        endpoint = f'api/CreateTasks/{processKey}'
+        json_payload = new_tasks if isinstance(new_tasks, str) else json.dumps(new_tasks)
+        result = self._api_post(endpoint, json_payload)
+        response = AnymateCreateTasksResponse(**result)
+        return response
+
+    def create_and_take_task(self, processKey: str, new_task: Union[dict, str]) -> dict:
         endpoint = f'api/CreateAndTakeTask/{processKey}'
-        json_payload = json.dumps(new_task)
+        json_payload = new_task if isinstance(new_task, str) else json.dumps(new_task)
         result = self._api_post(endpoint, json_payload)
         return result
         # response = get_object(result)
         # return response
 
-    def update_task(self, task: dict) -> AnymateResponse:
+    def update_task(self, task: dict, str) -> AnymateResponse:
         endpoint = f'api/UpdateTask'
-        json_payload = json.dumps(task)
+        json_payload = task if isinstance(task, str) else json.dumps(task)
         result = self._api_post(endpoint, json_payload)
         response = AnymateResponse(**result)
         return response
 
-    def error(self, action: Union[AnymateTaskAction, dict]) -> AnymateResponse:
+    def error(self, action: Union[AnymateTaskAction, dict, str]) -> AnymateResponse:
         endpoint = f'api/Error'
-        json_payload = json.dumps(action)
+        json_payload = action if isinstance(action, str) else json.dumps(action)
         result = self._api_post(endpoint, json_payload)
         response = AnymateResponse(**result)
         return response
 
-    def manual(self, action: Union[AnymateTaskAction, dict]) -> AnymateResponse:
+    def manual(self, action: Union[AnymateTaskAction, dict, str]) -> AnymateResponse:
         endpoint = f'api/Manual'
-        json_payload = json.dumps(action)
+        json_payload = action if isinstance(action, str) else json.dumps(action)
         result = self._api_post(endpoint, json_payload)
         response = AnymateResponse(**result)
         return response
 
-    def retry(self, action: Union[AnymateTaskAction, AnymateRetryTaskAction, dict]) -> AnymateResponse:
+    def retry(self, action: Union[AnymateTaskAction, AnymateRetryTaskAction, dict, str]) -> AnymateResponse:
         endpoint = f'api/Retry'
-        json_payload = json.dumps(action)
+        json_payload = action if isinstance(action, str) else json.dumps(action)
         result = self._api_post(endpoint, json_payload)
         response = AnymateResponse(**result)
         return response
 
-    def solved(self, action: Union[AnymateTaskAction, dict]) -> AnymateResponse:
+    def solved(self, action: Union[AnymateTaskAction, dict, str]) -> AnymateResponse:
         endpoint = f'api/Solved'
-        json_payload = json.dumps(action)
+        json_payload = action if isinstance(action, str) else json.dumps(action)
         result = self._api_post(endpoint, json_payload)
         response = AnymateResponse(**result)
         return response
