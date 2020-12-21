@@ -20,7 +20,7 @@ class AnymateCreateTaskResponse(BaseModel):
 class AnymateCreateTasksResponse(BaseModel):
     succeeded: bool
     message: str
-    taskIds: [int]
+    taskIds: list
 
 
 class AnymateProcessFailure(BaseModel):
