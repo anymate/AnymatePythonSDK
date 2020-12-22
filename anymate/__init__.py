@@ -61,7 +61,7 @@ class client:
     def _get_or_refresh_access_token(self) -> None:
         get_new_token = True
         if self.access_token:
-            decoded_token = jwt.decode(self.access_token, verify=False)
+            decoded_token = jwt.decode(self.access_token, options={"verify_signature": False}, algorithms=["HS256"])
             expiration_time = decoded_token.get('exp', 0)
             expiration_datetime = datetime.datetime.utcfromtimestamp(expiration_time)
             diff = expiration_datetime - datetime.datetime.utcnow()
