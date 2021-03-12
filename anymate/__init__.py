@@ -85,6 +85,7 @@ class client:
 
         url = f'{self.client_uri}/{endpoint}'
         result = requests.post(url, data=json_payload, headers=headers)
+        result.raise_for_status()
         json_result = result.json()
         return json_result
 
@@ -100,6 +101,7 @@ class client:
 
         url = f'{self.client_uri}/{endpoint}'
         result = requests.get(url, headers=headers)
+        result.raise_for_status()
         json_result = result.json()
         return json_result
 
