@@ -168,7 +168,7 @@ class client:
         # response = get_object(result)
         # return response
 
-    def update_task(self, task: dict, str) -> AnymateResponse:
+    def update_task(self, task: Union[dict, str]) -> AnymateResponse:
         endpoint = f'api/UpdateTask'
         json_payload = task if isinstance(task, str) else json.dumps(task)
         result = self._api_post(endpoint, json_payload)
