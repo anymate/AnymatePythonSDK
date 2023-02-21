@@ -2,6 +2,7 @@ import datetime
 import requests
 import jwt
 from typing import Union
+from typing import List
 from anymate.models import *
 from anymate.helpers import *
 
@@ -54,8 +55,10 @@ class client:
                 'username': self.username,
                 'password': self.password}
         result = requests.post(f'{self.auth_uri}/connect/token', data=auth)
+        print("result", result)
         response = AuthResponse(**result.json())
         self.access_token = response.access_token
+        result.close() # https://stackoverflow.com/questions/46188295/python-httpconnectionpool-failed-to-establish-a-new-connection-errno-11004-ge
         return response.access_token
 
     def _get_or_refresh_access_token(self) -> None:
@@ -71,6 +74,7 @@ class client:
             return
 
         self.access_token = self._authenticate()
+        print(self.access_token)
         return
 
     def _api_post(self, endpoint: str, json_payload: str) -> dict:
@@ -87,9 +91,10 @@ class client:
         result = requests.post(url, data=json_payload, headers=headers)
         result.raise_for_status()
         json_result = result.json()
+        result.close() # https://stackoverflow.com/questions/46188295/python-httpconnectionpool-failed-to-establish-a-new-connection-errno-11004-ge
         return json_result
 
-    def _api_get(self, endpoint: str) -> dict:
+    def _api_get(self, endpoint: str) -> dict | List[dict]:
         self._get_or_refresh_access_token()
         headers = {'Authorization': f'Bearer {self.access_token}',
                    'Content-type': 'application/json'}
@@ -103,6 +108,7 @@ class client:
         result = requests.get(url, headers=headers)
         result.raise_for_status()
         json_result = result.json()
+        result.close() # https://stackoverflow.com/questions/46188295/python-httpconnectionpool-failed-to-establish-a-new-connection-errno-11004-ge
         return json_result
 
     def failure(self, anymate_process_failure: Union[AnymateProcessFailure, dict, str]) -> AnymateResponse:
@@ -136,15 +142,11 @@ class client:
         endpoint = f'api/GetRules/{processKey}'
         result = self._api_get(endpoint)
         return result
-        # response = get_object(result)
-        # return response
 
     def take_next(self, processKey: str) -> dict:
         endpoint = f'api/TakeNext/{processKey}'
         result = self._api_get(endpoint)
         return result
-        # response = get_object(result)
-        # return response
 
     def create_task(self, processKey: str, new_task: Union[dict, str]) -> AnymateCreateTaskResponse:
         endpoint = f'api/CreateTask/{processKey}'
@@ -199,6 +201,46 @@ class client:
     def solved(self, action: Union[AnymateTaskAction, dict, str]) -> AnymateResponse:
         endpoint = f'api/Solved'
         json_payload = action if isinstance(action, str) else json.dumps(action)
+        result = self._api_post(endpoint, json_payload)
+        response = AnymateResponse(**result)
+        return response
+
+    def take_many(self, processKey: str) -> List[dict]:
+        endpoint = f'api/TakeNext/{processKey}/Many'
+        result = self._api_get(endpoint)
+        return result
+
+    def error_async(self, action: Union[AnymateTaskAction, dict, str]) -> AnymateResponse:
+        endpoint = f'api/Error/Async'
+        json_payload = action if isinstance(action, str) else json.dumps(action)
+        result = self._api_post(endpoint, json_payload)
+        response = AnymateResponse(**result)
+        return response
+
+    def manual_async(self, action: Union[AnymateTaskAction, dict, str]) -> AnymateResponse:
+        endpoint = f'api/Manual/async'
+        json_payload = action if isinstance(action, str) else json.dumps(action)
+        result = self._api_post(endpoint, json_payload)
+        response = AnymateResponse(**result)
+        return response
+
+    def retry_async(self, action: Union[AnymateTaskAction, AnymateRetryTaskAction, dict, str]) -> AnymateResponse:
+        endpoint = f'api/Retry/async'
+        json_payload = action if isinstance(action, str) else json.dumps(action)
+        result = self._api_post(endpoint, json_payload)
+        response = AnymateResponse(**result)
+        return response
+
+    def solved_async(self, action: Union[AnymateTaskAction, dict, str]) -> AnymateResponse:
+        endpoint = f'api/Solved/Async'
+        json_payload = action if isinstance(action, str) else json.dumps(action)
+        result = self._api_post(endpoint, json_payload)
+        response = AnymateResponse(**result)
+        return response
+
+    def return_tasks(self, actions) -> AnymateResponse:
+        endpoint = f'api/Return'
+        json_payload = actions if isinstance(actions, str) else json.dumps(actions)
         result = self._api_post(endpoint, json_payload)
         response = AnymateResponse(**result)
         return response

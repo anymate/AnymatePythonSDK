@@ -1,3 +1,4 @@
+from typing import Literal
 from pydantic import BaseModel
 
 
@@ -56,6 +57,15 @@ class AnymateTaskAction(BaseModel):
 
 class AnymateRetryTaskAction(BaseModel):
     taskId: int
+    reason: str
+    comment: str = ''
+    activationDate: str = None
+    overwriteSecondsSaved: int = None
+    overwriteEntries: int = None
+
+class AnymateReturnTaskAction(BaseModel):
+    taskId: int
+    action: Literal['Solved', 'Manual', 'Error', 'Retry']
     reason: str
     comment: str = ''
     activationDate: str = None
