@@ -206,7 +206,7 @@ class client:
         return response
 
     def take_many(self, processKey: str) -> List[dict]:
-        endpoint = f'api/TakeNext/{processKey}/Many'
+        endpoint = f'api/TakeMany/{processKey}'
         result = self._api_get(endpoint)
         return result
 
