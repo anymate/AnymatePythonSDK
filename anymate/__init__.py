@@ -211,30 +211,31 @@ class client:
         return result
 
     def error_async(self, action: Union[AnymateTaskAction, dict, str]) -> AnymateResponse:
-        endpoint = f'api/Error/Async'
+        endpoint = f'api/ErrorAsync'
         json_payload = action if isinstance(action, str) else json.dumps(action)
         result = self._api_post(endpoint, json_payload)
         response = AnymateResponse(**result)
         return response
 
     def manual_async(self, action: Union[AnymateTaskAction, dict, str]) -> AnymateResponse:
-        endpoint = f'api/Manual/async'
+        endpoint = f'api/ManualAsync'
         json_payload = action if isinstance(action, str) else json.dumps(action)
         result = self._api_post(endpoint, json_payload)
         response = AnymateResponse(**result)
         return response
 
     def retry_async(self, action: Union[AnymateTaskAction, AnymateRetryTaskAction, dict, str]) -> AnymateResponse:
-        endpoint = f'api/Retry/async'
+        endpoint = f'api/RetryAsync'
         json_payload = action if isinstance(action, str) else json.dumps(action)
         result = self._api_post(endpoint, json_payload)
         response = AnymateResponse(**result)
         return response
 
     def solved_async(self, action: Union[AnymateTaskAction, dict, str]) -> AnymateResponse:
-        endpoint = f'api/Solved/Async'
+        endpoint = f'api/SolvedAsync'
         json_payload = action if isinstance(action, str) else json.dumps(action)
         result = self._api_post(endpoint, json_payload)
+        print("result", result)
         response = AnymateResponse(**result)
         return response
 
