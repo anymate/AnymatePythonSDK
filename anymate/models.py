@@ -1,10 +1,10 @@
 from typing import Literal
-from pydantic import BaseModel
+from pydantic import BaseModel, Any
 
 
 class AuthResponse(BaseModel):
     access_token: str
-    expires_in: str
+    expires_in: Any
     token_type: str
     scope: str
 
