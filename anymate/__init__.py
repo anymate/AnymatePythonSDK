@@ -46,7 +46,7 @@ class client:
         return f'https://{self.client_id}.anymate.app'
 
     def _get_auth_url(self) -> str:
-        return f'https://{self.client_id}.auth.anymate.app';
+        return f'https://{self.client_id}.auth.anymate.app'
 
     def _authenticate(self) -> str:
         auth = {'client_id': self.client_id,
@@ -94,7 +94,7 @@ class client:
         result.close() # https://stackoverflow.com/questions/46188295/python-httpconnectionpool-failed-to-establish-a-new-connection-errno-11004-ge
         return json_result
 
-    def _api_get(self, endpoint: str) -> dict | List[dict]:
+    def _api_get(self, endpoint: str):
         self._get_or_refresh_access_token()
         headers = {'Authorization': f'Bearer {self.access_token}',
                    'Content-type': 'application/json'}
