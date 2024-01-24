@@ -2,12 +2,12 @@ from typing import Literal
 from pydantic import BaseModel, Any
 
 
-class AuthResponse(BaseModel):
-    access_token: str
-    expires_in: Any
-    token_type: str
-    scope: str
-
+class AuthResponse:
+    def __init__(self, access_token, expires_in, token_type, scope):
+        self.access_token = access_token
+        self.expires_in = expires_in
+        self.token_type = token_type
+        self.scope = scope
 
 class AnymateResponse(BaseModel):
     succeeded: bool
